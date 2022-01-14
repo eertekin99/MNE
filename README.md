@@ -26,5 +26,5 @@ The user can choose from 5 types of classifiers, so the possible variants of the
 - `python main.py svm`
 - `python main.py cnn`
 - `python main.py rnn`
-- `python main.py lro`
+- `python main.py lor`
 
