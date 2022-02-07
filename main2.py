@@ -168,7 +168,7 @@ for train, validation in shuffle_split.split(x_train):
     #     print('Optimum parameters', model.best_params_)
 
         model = linear.LinearClassifier(XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', 
-        n_estimators=400, subsample=0.92, gamma=0.07, max_depth=12, n_jobs=18, reg_alpha=0))
+        n_estimators=200, subsample=0.9, gamma=0.05, max_depth=10, n_jobs=16, reg_alpha=0))
     else:
         """
         param_grid = {
