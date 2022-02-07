@@ -15,16 +15,20 @@ This is the example of the experiment using preprocessing methods from the `MNE`
 - Linear discriminant analysis
 - Support vector machines
 - Logistic regression
+- Random Forest Classifier
+- XGBoost
 
 ## Run:
 The program is executable from the command line using the _main.py_ file with one argument represents the choice of classifier. The command has the following form:
 
 `python main.py <classifier>`
 
-The user can choose from 5 types of classifiers, so the possible variants of the command are:
+The user can choose from 7 types of classifiers, so the possible variants of the command are:
 - `python main.py lda`
 - `python main.py svm`
 - `python main.py cnn`
 - `python main.py rnn`
 - `python main.py lor`
+- `python main.py xgb`
+- `python main.py randfor`
 
