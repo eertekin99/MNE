@@ -35,6 +35,7 @@ from keras.layers import Dense, Dropout
 from nn import NN
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
 
 def windowed_means(out_features, param):
@@ -135,9 +136,56 @@ for train, validation in shuffle_split.split(x_train):
     elif classifier == 'randfor':
         model = linear.LinearClassifier(RandomForestClassifier(n_estimators=100, max_depth = 3))
     elif classifier == 'xgb':
-        model = linear.LinearClassifier(XGBClassifier(use_label_encoder=False, eval_metric='mlogloss'))
+        
+    
+    #     param_grid_old = dict(
+    #     n_jobs=[16],
+    #     learning_rate=[0.1, 0.5],
+    #     max_depth=[5, 10, 15], 
+    #     n_estimators=[100, 500, 1000],
+    #     subsample=[0.2, 0.8, 1.0],
+    #     gamma=[0.05, 0.5],
+    #     scale_pos_weight=[0, 1],
+    #     reg_alpha=[0, 0.5],
+    #     reg_lambda=[1, 0],
+    # )
+
+    #     param_grid = dict(
+    #     n_jobs=[16],
+    #     max_depth=[5, 10], 
+    #     n_estimators=[100, 200],
+    #     gamma=[0.05, 0.5],
+    #     reg_alpha=[0, 0.5],
+    # )
+
+    #     first_model = XGBClassifier(random_state=1, verbosity=1, use_label_encoder=False, eval_metric='mlogloss')
+    #     grid_search = GridSearchCV(estimator=first_model,
+    #                             param_grid=param_grid,
+    #                             scoring='neg_root_mean_squared_error',
+    #                             )
+
+    #     model = grid_search.fit(x_train, y_train[:, 0])
+    #     print('Optimum parameters', model.best_params_)
+
+        model = linear.LinearClassifier(XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', 
+        n_estimators=400, subsample=0.92, gamma=0.07, max_depth=12, n_jobs=18, reg_alpha=0))
     else:
+        """
+        param_grid = {
+        'cache_size' : [100, 200]
+        }
+
+        first_model = SVC()
+        grid_search = GridSearchCV(estimator=first_model,
+                                param_grid=param_grid
+                                )
+
+        model = grid_search.fit(x_train, y_train[:, 0])
+        print('Optimum parameters', model.best_params_)
+        """
+
         model = linear.LinearClassifier(SVC(cache_size=500))
+
 
     validation_metrics = model.fit(x_train[train], y_train[train], x_train[validation], y_train[validation])
     val_results.append(validation_metrics)
@@ -166,4 +214,3 @@ print("AUC: ", avg_test_results[0], "(", avg_test_results_std[0], ")")
 print("accuracy: ", avg_test_results[1], "(", avg_test_results_std[1], ")")
 print("precision: ", avg_test_results[2], "(", avg_test_results_std[2], ")")
 print("recall: ", avg_test_results[3], "(", avg_test_results_std[3], ")")
-
