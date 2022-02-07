@@ -21,14 +21,14 @@ This is the example of the experiment using preprocessing methods from the `MNE`
 ## Run:
 The program is executable from the command line using the _main.py_ file with one argument represents the choice of classifier. The command has the following form:
 
-`python main.py <classifier>`
+`python main2.py <classifier>`
 
 The user can choose from 7 types of classifiers, so the possible variants of the command are:
-- `python main.py lda`
-- `python main.py svm`
-- `python main.py cnn`
-- `python main.py rnn`
-- `python main.py lor`
-- `python main.py xgb`
-- `python main.py randfor`
+- `python main2.py lda`
+- `python main2.py svm`
+- `python main2.py cnn`
+- `python main2.py rnn`
+- `python main2.py lor`
+- `python main2.py xgb`
+- `python main2.py randfor`
 
