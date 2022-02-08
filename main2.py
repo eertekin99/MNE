@@ -36,6 +36,7 @@ from nn import NN
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+from sklearn.model_selection import TimeSeriesSplit
 
 
 def windowed_means(out_features, param):
@@ -115,7 +116,12 @@ x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=param.test_p
 
 val = round(param.validation_part * x_train.shape[0])
 
-shuffle_split = ShuffleSplit(n_splits=param.cross_val_iter, test_size=val, random_state=0)
+## monte-carlo split https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit
+# shuffle_split = ShuffleSplit(n_splits=param.cross_val_iter, test_size=val, random_state=0)
+
+# Time-series split https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html
+shuffle_split = TimeSeriesSplit(n_splits=param.cross_val_iter, test_size=100, gap=0)
+
 val_results = []
 test_results = []
 iter_counter = 0
